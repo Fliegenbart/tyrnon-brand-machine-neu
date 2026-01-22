@@ -196,7 +196,16 @@ function BrandEngine() {
 export default function App() {
   const [isAuth, setIsAuth] = useState(() => localStorage.getItem('brand_engine_auth') === 'true');
 
-  if (!isAuth) return <LoginScreen onLogin={() => setIsAuth(true)} />;
+  const handleLogin = (password) => {
+    if (password === 'brandengine2026') {
+      localStorage.setItem('brand_engine_auth', 'true');
+      setIsAuth(true);
+      return true;
+    }
+    return false;
+  };
+
+  if (!isAuth) return <LoginScreen onLogin={handleLogin} />;
 
   // Always use Simple Mode (3-step AI-driven flow)
   return <SimpleBrandEngine />;
